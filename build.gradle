@@ -59,7 +59,7 @@ ext {
 	jaywayJsonPathVersion = '2.9.0'
 	junit4Version = '4.13.2'
 	junitJupiterVersion = '5.11.4'
-	kafkaVersion = '3.8.1'
+	kafkaVersion = '4.0.0-SNAPSHOT'
 	kotlinCoroutinesVersion = '1.10.1'
 	log4jVersion = '2.24.3'
 	micrometerDocsVersion = '1.0.4'
@@ -91,6 +91,7 @@ allprojects {
 	apply plugin: 'io.spring.dependency-management'
 
 	repositories {
+		mavenLocal()
 		mavenCentral()
 		maven { url 'https://repo.spring.io/milestone' }
 		if (version.endsWith('SNAPSHOT')) {
@@ -365,6 +366,7 @@ project ('spring-kafka-test') {
 		}
 		api "org.apache.kafka:kafka-clients:$kafkaVersion:test"
 		api "org.apache.kafka:kafka-server:$kafkaVersion"
+		api "org.apache.kafka:kafka-test-common-runtime:$kafkaVersion"
 		api "org.apache.kafka:kafka-metadata:$kafkaVersion"
 		api "org.apache.kafka:kafka-server-common:$kafkaVersion"
 		api "org.apache.kafka:kafka-server-common:$kafkaVersion:test"

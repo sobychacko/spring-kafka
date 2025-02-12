@@ -31,7 +31,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.EmbeddedKafkaKraftBroker;
-import org.springframework.kafka.test.EmbeddedKafkaZKBroker;
 import org.springframework.util.StringUtils;
 
 /**
@@ -126,16 +125,10 @@ public class GlobalEmbeddedKafkaTestExecutionListener implements TestExecutionLi
 							.orElse(new int[count]);
 			boolean kraft = configurationParameters.getBoolean(KRAFT_PROPERTY_NAME).orElse(true);
 
-			if (kraft) {
-				this.embeddedKafkaBroker = new EmbeddedKafkaKraftBroker(count, partitions, topics)
-						.brokerProperties(brokerProperties)
-						.kafkaPorts(ports);
-			}
-			else {
-				this.embeddedKafkaBroker = new EmbeddedKafkaZKBroker(count, false, partitions, topics)
-						.brokerProperties(brokerProperties)
-						.kafkaPorts(ports);
-			}
+			this.embeddedKafkaBroker = new EmbeddedKafkaKraftBroker(count, partitions, topics)
+					.brokerProperties(brokerProperties)
+					.kafkaPorts(ports);
+
 			if (brokerListProperty != null) {
 				this.embeddedKafkaBroker.brokerListProperty(brokerListProperty);
 			}
